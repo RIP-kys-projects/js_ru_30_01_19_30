@@ -4,6 +4,7 @@ import accordeon from '../decorators/accordeon'
 
 class ArticleList extends Component {
     static propTypes = {
+        //А вот сюда еще и из декоратора данные приходят
         articles: PropTypes.arrayOf(React.PropTypes.object).isRequired
     };
 
