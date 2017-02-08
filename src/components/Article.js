@@ -9,10 +9,10 @@ class Article extends Component {
             text: PropTypes.string.isRequired,
             comments: PropTypes.array
         }).isRequired
-    }
+    };
 
     render() {
-        const {article, toggleOpen} = this.props
+        const {article, toggleOpen} = this.props;
         return (
             <div>
                 <h3 onClick={toggleOpen}>{article.title}</h3>
@@ -22,8 +22,8 @@ class Article extends Component {
     }
 
     getBody() {
-        const {isOpen, article: {text, comments}} = this.props
-        if (!isOpen) return null
+        const {isOpen, article: {text, comments}} = this.props;
+        if (!isOpen) return null;
 
         return (
             <section>
