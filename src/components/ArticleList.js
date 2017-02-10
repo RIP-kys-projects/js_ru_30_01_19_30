@@ -18,7 +18,6 @@ class ArticleList extends Component {
         )
     }
 }
-export default accordion(ArticleList)
 
 ArticleList.propTypes = {
     articles: PropTypes.array.isRequired,
@@ -30,3 +29,5 @@ ArticleList.propTypes = {
 ArticleList.defaultProps = {
     articles: []
 }
+
+export default accordion(ArticleList)
