@@ -1,0 +1,24 @@
+.AddCommentForm *{
+    box-sizing: border-box;
+}
+
+
+.AddCommentForm__input{
+    display: block;
+    width: 250px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border: solid 1px #ccc;
+    border-radius: 4px;
+}
+
+.AddCommentForm__input_username{}
+
+.AddCommentForm__input_new-comment{}
+
+.AddCommentForm__input_submit{
+    background-color: lightgreen;
+    cursor: pointer;
+}

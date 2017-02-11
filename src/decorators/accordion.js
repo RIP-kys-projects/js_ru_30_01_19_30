@@ -14,7 +14,7 @@ export default (MyComponent) => class Accordion extends ReactComponent {
 
 
     toggleOpenItem = id => ev => {
-        console.log('id: ', id)
+        //console.log('id: ', id)
         ev && ev.preventDefault && ev.preventDefault()
         this.setState({
             openItemId: this.isOpenItem(id) ? null : id

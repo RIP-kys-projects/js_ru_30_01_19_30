@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
+import AddCommentForm from './AddCommentForm/AddCommentForm'
 
 class CommentList extends Component {
     static propTypes = {
@@ -9,7 +10,7 @@ class CommentList extends Component {
         comments: []
     }
     componentDidMount() {
-        console.log('---', 'mounted')
+        console.log('---CommentList', 'mounted')
     }
 
     componentWillReceiveProps(nextProps) {
@@ -36,13 +37,18 @@ class CommentList extends Component {
     }
 
     getBody() {
-        if (!this.state.isOpen) return null
+        if (!this.state.isOpen) return null;
 
         const {comments} = this.props
-        if (!comments.length) return <h3>No comments yet</h3>
+        if (!comments.length) return <h3>No comments yet</h3>;
 
-        const commentItems = comments.map(comment => <li key={comment.id}><Comment comment={comment} /></li>)
-        return <ul>{commentItems}</ul>
+        const commentItems = comments.map(comment => <li key={comment.id}><Comment comment={comment} /></li>);
+        return (
+            <div>
+                <ul>{commentItems}</ul>
+                <AddCommentForm />
+            </div>
+        )
     }
 
     toggleOpen = ev => {
