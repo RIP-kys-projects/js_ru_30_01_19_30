@@ -8,7 +8,7 @@ import 'react-select/dist/react-select.css'
 import '../styles/react-select_custom.css'
 
 import DayPickerComponent from "./DayPickerComponent/DayPickerComponent";
-import './DayPickerComponent/DayPickerComponent.css'
+/* Не превращается ли "точка входа" в перечисление import-ов ? */
 
 class App extends Component {
     state = {

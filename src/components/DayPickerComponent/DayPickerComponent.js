@@ -3,6 +3,7 @@ import React, { PropTypes, Component } from 'react'
 import moment from 'moment';
 import DayPicker, { DateUtils } from "react-day-picker";
 import 'react-day-picker/dist/style.css'
+import './DayPickerComponent.css'
 
 export default class DayPickerComponent extends Component {
 
@@ -11,14 +12,18 @@ export default class DayPickerComponent extends Component {
         this.handleDayClick = this.handleDayClick.bind(this);
         this.handleResetClick = this.handleResetClick.bind(this);
     }
+    /* В примере именно так задано, но как-то непривычно. Думал, что или в конструкторе писать this.state = {}
+     * или как свойство класса state = {}. */
     state = {
         from: null,
         to: null,
     };
+
     handleDayClick(e, day) {
         const range = DateUtils.addDayToRange(day, this.state);
         this.setState(range);
     }
+
     handleResetClick(e) {
         e.preventDefault();
         this.setState({
@@ -26,9 +31,6 @@ export default class DayPickerComponent extends Component {
             to: null,
         });
     }
-    /*state = {
-        selectedDay: new Date(),
-    };*/
 
     render() {
         const { from, to } = this.state;
@@ -50,7 +52,7 @@ export default class DayPickerComponent extends Component {
                     </p>
                 }
                 <DayPicker
-                    locale="by"
+                    locale="be"
                     months={ MONTHS }
                     weekdaysLong={ WEEKDAYS_LONG }
                     weekdaysShort={ WEEKDAYS_SHORT }
