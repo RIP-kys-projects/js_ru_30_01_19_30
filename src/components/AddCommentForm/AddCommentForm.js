@@ -4,6 +4,7 @@ import './AddCommentForm.css'
 export default class AddCommentForm extends Component {
     state = {
         username: '',
+        //ок, но в JS принят camelCase
         user_comment: '',
     };
 
