@@ -2,7 +2,6 @@ import React, { PropTypes, Component } from 'react'
 import ArticleList from './ArticleList'
 import Chart from './Chart'
 import Filters from './Filters'
-import 'react-select/dist/react-select.css'
 import Counter from './Counter'
 import {connect} from 'react-redux'
 

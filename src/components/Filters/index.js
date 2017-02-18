@@ -4,7 +4,7 @@ import DateRange from './DateRange'
 
 class Filters extends Component {
     static propTypes = {
-    }
+    };
 
     render() {
         return (
