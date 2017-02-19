@@ -1,27 +1,27 @@
 import React, { Component, PropTypes } from 'react'
 
 class NewCommentForm extends Component {
-    static propTypes = {
-    }
+    static propTypes = {};
 
     state = {
         text: '',
         user: ''
-    }
+    };
 
     handleChange = field => ev => {
         this.setState({
             [field]: ev.target.value
-        })
-    }
+        });
+    };
 
     handleSubmit = ev => {
-        ev.preventDefault()
+        ev.preventDefault();
+        this.props.addNewComment( this.state );
         this.setState({
             user: '',
             text: ''
         })
-    }
+    };
 
     render() {
         return (

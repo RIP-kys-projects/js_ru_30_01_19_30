@@ -7,7 +7,7 @@ import Loader from './Loader'
 
 class ArticleList extends Component {
     render() {
-        const {articles, loading, toggleOpenItem, isOpenItem} = this.props
+        const {articles, loading, toggleOpenItem, isOpenItem} = this.props;
 
         if (loading) {
             return <Loader/>
@@ -18,7 +18,7 @@ class ArticleList extends Component {
                 article={article}
                 isOpen={isOpenItem(article.id)}
                 toggleOpen={toggleOpenItem(article.id)}/>
-        </li>)
+        </li>);
         return (
             <ul>
                 {articleElements}
@@ -29,16 +29,15 @@ class ArticleList extends Component {
 
 export default connect(
     (state) => {
-        const { filters } = state
-        const articles = mapToArr(state.articles.entities)
-        const {selected} = filters
-        const { from, to } = filters.dateRange
-
+        const { filters } = state;
+        const articles = mapToArr(state.articles.entities);
+        const { selected } = filters;
+        const { from, to } = filters.dateRange;
         const filteredArticles = articles.filter(article => {
-            const published = Date.parse(article.date)
+            const published = Date.parse(article.date);
             return (!selected.length || selected.includes(article.id)) &&
                 (!from || !to || (published > from && published < to))
-        })
+        });
         return {
             articles: filteredArticles,
             loading: state.articles.isLoading
@@ -49,10 +48,10 @@ export default connect(
 ArticleList.propTypes = {
     articles: PropTypes.array.isRequired,
     //from accordion decorator
-    isOpenItem: PropTypes.func.isRequired,
-    toggleOpenItem: PropTypes.func.isRequired
-}
+    isOpenItem: PropTypes.func,
+    toggleOpenItem: PropTypes.func
+};
 
 ArticleList.defaultProps = {
     articles: []
-}
+};

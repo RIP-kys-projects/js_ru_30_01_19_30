@@ -1,7 +1,13 @@
-import {INCREMENT, DELETE_ARTICLE, CHANGE_DATE_RANGE, CHANGE_SELECTION, LOAD_ALL_ARTICLES, START, SUCCESS, FAIL} from '../constants'
+import {
+    INCREMENT,
+    DELETE_ARTICLE,
+    CHANGE_DATE_RANGE, CHANGE_SELECTION,
+    LOAD_ALL_ARTICLES, LOAD_ALL_COMMENTS,
+    START,SUCCESS, FAIL,
+    ADD_NEW_COMMENT} from '../constants'
 import $ from 'jquery'
 
-
+/*- increment -*/
 export function increment() {
     const action = {
         type: INCREMENT
@@ -10,6 +16,7 @@ export function increment() {
     return action
 }
 
+/*- deleteArticle -*/
 export function deleteArticle(id) {
     return {
         type: DELETE_ARTICLE,
@@ -17,6 +24,7 @@ export function deleteArticle(id) {
     }
 }
 
+/*- changeDateRange -*/
 export function changeDateRange(dateRange) {
     return {
         type: CHANGE_DATE_RANGE,
@@ -24,6 +32,7 @@ export function changeDateRange(dateRange) {
     }
 }
 
+/*- changeSelection -*/
 export function changeSelection(selected) {
     return {
         type: CHANGE_SELECTION,
@@ -31,6 +40,7 @@ export function changeSelection(selected) {
     }
 }
 
+/*- loadAllArticles -*/
 export function loadAllArticles() {
     return {
         type: LOAD_ALL_ARTICLES,
@@ -38,6 +48,7 @@ export function loadAllArticles() {
     }
 }
 
+/*- loadAllArticlesThunk -*/
 export function loadAllArticlesThunk() {
     return (dispatch) => {
         dispatch({
@@ -46,14 +57,35 @@ export function loadAllArticlesThunk() {
 
         setTimeout(() => {
             $.get('/api/article')
-                .done(response => dispatch({
-                    type: LOAD_ALL_ARTICLES + SUCCESS,
-                    response
-                }))
+                .done(response => {
+                    console.log('response from loadAllArticlesThunk: ', response);
+                    return dispatch({
+                            type: LOAD_ALL_ARTICLES + SUCCESS,
+                            response
+                        })
+                    }
+                )
                 .fail(error => dispatch({
                     type: LOAD_ALL_ARTICLES + FAIL,
                     error
                 }))
         }, 1000)
+    }
+}
+
+/*- loadAllComments -*/
+export function loadAllComments() {
+    return {
+        type: LOAD_ALL_COMMENTS,
+        callAPIComment: '/api/comment'
+    }
+}
+
+/*- addNewComment -*/
+export function addNewComment(articleId, comment) {
+    return {
+        type: ADD_NEW_COMMENT,
+        payload: { articleId, comment },
+        generateRandomId: true
     }
 }

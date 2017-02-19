@@ -4,7 +4,8 @@ import CommentList from '../CommentList'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
 import {connect} from 'react-redux'
-import {deleteArticle} from '../../AC'
+import { deleteArticle } from '../../AC'
+import { addNewComment } from '../../AC'
 
 class Article extends Component {
     static propTypes = {
@@ -15,7 +16,7 @@ class Article extends Component {
         }).isRequired,
         isOpen: PropTypes.bool,
         toggleOpen: PropTypes.func
-    }
+    };
 /*
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -24,7 +25,7 @@ class Article extends Component {
 */
 
     render() {
-        const {article, toggleOpen} = this.props
+        const {article, toggleOpen} = this.props;
         return (
             <div ref = {this.getContainerRef}>
                 <h3 onClick={toggleOpen}>
@@ -44,30 +45,44 @@ class Article extends Component {
 
     getContainerRef = (ref) => {
         this.container = ref
-    }
+    };
 
     getCommentsRef = (ref) => {
-        this.commentList = ref
-        if (!ref) return null
+        this.commentList = ref;
+        if (!ref) return null;
 //        console.log('---', ref.state.isOpen, findDOMNode(ref))
-    }
+    };
 
     getBody() {
-        const {isOpen, article: {text, comments}} = this.props
-        if (!isOpen) return null
+        const {isOpen, article: {text, comments}} = this.props;
+        if (!isOpen) return null;
 
         return (
             <section>
                 {text}
-                <CommentList comments={comments} ref = {this.getCommentsRef} />
+                <CommentList
+                    comments={comments}
+                    addNewComment={this.addNewComment}
+                    ref={this.getCommentsRef}
+                />
             </section>
         )
     }
 
+    addNewComment = (comment) => {
+        this.props.addNewComment(this.props.article.id, comment)
+    };
+
     handleDelete = ev => {
-        ev.preventDefault()
+        ev.preventDefault();
         this.props.deleteArticle(this.props.article.id)
     }
 }
 
-export default connect(null, { deleteArticle })(Article)
+export default connect(
+        null,
+        {
+            deleteArticle,
+            addNewComment
+        }
+    )( Article )
