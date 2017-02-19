@@ -24,6 +24,7 @@ export default (state = defaultState, action) => {
         case ADD_NEW_COMMENT:
             let comments = {
                 ...state.entities,
+                //вот этот спрэд лишний
                 ...{
                     [payload.newCommentId]: {
                         ...payload.comment,
