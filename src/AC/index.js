@@ -82,10 +82,10 @@ export function loadAllComments() {
 }
 
 /*- addNewComment -*/
-export function addNewComment(data) {
+export function addNewComment(articleId, comment) {
     return {
         type: ADD_NEW_COMMENT,
-        payload: data,
+        payload: { articleId, comment },
         generateRandomId: true
     }
 }

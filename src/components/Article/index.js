@@ -4,7 +4,8 @@ import CommentList from '../CommentList'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
 import {connect} from 'react-redux'
-import {deleteArticle} from '../../AC'
+import { deleteArticle } from '../../AC'
+import { addNewComment } from '../../AC'
 
 class Article extends Component {
     static propTypes = {
@@ -59,10 +60,18 @@ class Article extends Component {
         return (
             <section>
                 {text}
-                <CommentList comments={comments} ref = {this.getCommentsRef} />
+                <CommentList
+                    comments={comments}
+                    addNewComment={this.addNewComment}
+                    ref={this.getCommentsRef}
+                />
             </section>
         )
     }
+
+    addNewComment = (comment) => {
+        this.props.addNewComment(this.props.article.id, comment)
+    };
 
     handleDelete = ev => {
         ev.preventDefault();
@@ -70,4 +79,10 @@ class Article extends Component {
     }
 }
 
-export default connect(null, { deleteArticle })( Article )
+export default connect(
+        null,
+        {
+            deleteArticle,
+            addNewComment
+        }
+    )( Article )

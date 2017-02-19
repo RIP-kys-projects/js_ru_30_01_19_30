@@ -13,10 +13,10 @@ function Comment(props) {
 
 Comment.propTypes = {
     comment: PropTypes.shape({
-        id: PropTypes.number.isRequired,
+        id: PropTypes.any.isRequired,
         text: PropTypes.string.isRequired,
         user: PropTypes.string
-    }).isRequired
+    })
 };
 
 export default connect((state, props) => {

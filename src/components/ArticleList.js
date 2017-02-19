@@ -48,8 +48,8 @@ export default connect(
 ArticleList.propTypes = {
     articles: PropTypes.array.isRequired,
     //from accordion decorator
-    isOpenItem: PropTypes.func.isRequired,
-    toggleOpenItem: PropTypes.func.isRequired
+    isOpenItem: PropTypes.func,
+    toggleOpenItem: PropTypes.func
 };
 
 ArticleList.defaultProps = {

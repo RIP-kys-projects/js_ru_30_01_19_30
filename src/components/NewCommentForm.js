@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import { addNewComment } from '../AC'
-import {connect} from 'react-redux'
 
 class NewCommentForm extends Component {
     static propTypes = {};
@@ -18,12 +16,7 @@ class NewCommentForm extends Component {
 
     handleSubmit = ev => {
         ev.preventDefault();
-        this.props.addNewComment(
-            {
-                text: this.state.text,
-                user: this.state.user
-            }
-        );
+        this.props.addNewComment( this.state );
         this.setState({
             user: '',
             text: ''
@@ -41,4 +34,4 @@ class NewCommentForm extends Component {
     }
 }
 
-export default connect( null, { addNewComment } )(NewCommentForm)
+export default NewCommentForm
