@@ -40,6 +40,7 @@ class CommentList extends Component {
         if (!this.state.isOpen) return null;
 
         const {comments} = this.props;
+        //а здесь забыл addNewComment
         if (!comments.length) return (<div>
             <h3>No comments yet</h3>
             <NewCommentForm />
@@ -49,6 +50,7 @@ class CommentList extends Component {
             <li key={id}>
                 <Comment id={id} />
             </li>);
+        //вот уже достаточно тяжело становится проследить передачу addNewCommment
         return <div>
             <ul>{commentItems}</ul>
             <NewCommentForm addNewComment={this.props.addNewComment} />
