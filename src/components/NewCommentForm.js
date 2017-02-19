@@ -1,27 +1,34 @@
 import React, { Component, PropTypes } from 'react'
+import { addNewComment } from '../AC'
+import {connect} from 'react-redux'
 
 class NewCommentForm extends Component {
-    static propTypes = {
-    }
+    static propTypes = {};
 
     state = {
         text: '',
         user: ''
-    }
+    };
 
     handleChange = field => ev => {
         this.setState({
             [field]: ev.target.value
-        })
-    }
+        });
+    };
 
     handleSubmit = ev => {
-        ev.preventDefault()
+        ev.preventDefault();
+        this.props.addNewComment(
+            {
+                text: this.state.text,
+                user: this.state.user
+            }
+        );
         this.setState({
             user: '',
             text: ''
         })
-    }
+    };
 
     render() {
         return (
@@ -34,4 +41,4 @@ class NewCommentForm extends Component {
     }
 }
 
-export default NewCommentForm
+export default connect( null, { addNewComment } )(NewCommentForm)
