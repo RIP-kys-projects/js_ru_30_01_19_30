@@ -15,7 +15,7 @@ class Article extends Component {
         }).isRequired,
         isOpen: PropTypes.bool,
         toggleOpen: PropTypes.func
-    }
+    };
 /*
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -24,7 +24,7 @@ class Article extends Component {
 */
 
     render() {
-        const {article, toggleOpen} = this.props
+        const {article, toggleOpen} = this.props;
         return (
             <div ref = {this.getContainerRef}>
                 <h3 onClick={toggleOpen}>
@@ -44,17 +44,17 @@ class Article extends Component {
 
     getContainerRef = (ref) => {
         this.container = ref
-    }
+    };
 
     getCommentsRef = (ref) => {
-        this.commentList = ref
-        if (!ref) return null
+        this.commentList = ref;
+        if (!ref) return null;
 //        console.log('---', ref.state.isOpen, findDOMNode(ref))
-    }
+    };
 
     getBody() {
-        const {isOpen, article: {text, comments}} = this.props
-        if (!isOpen) return null
+        const {isOpen, article: {text, comments}} = this.props;
+        if (!isOpen) return null;
 
         return (
             <section>
@@ -65,9 +65,9 @@ class Article extends Component {
     }
 
     handleDelete = ev => {
-        ev.preventDefault()
+        ev.preventDefault();
         this.props.deleteArticle(this.props.article.id)
     }
 }
 
-export default connect(null, { deleteArticle })(Article)
+export default connect(null, { deleteArticle })( Article )
