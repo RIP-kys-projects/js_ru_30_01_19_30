@@ -1,11 +1,12 @@
 import React, {Component, PropTypes} from 'react'
 import {findDOMNode} from 'react-dom'
 import CommentList from '../CommentList'
+import Loader from '../Loader'
 import CSSTransition from 'react-addons-css-transition-group'
 import './style.css'
 import {connect} from 'react-redux'
-import { deleteArticle } from '../../AC'
-import { addNewComment } from '../../AC'
+import {deleteArticle, loadArticle} from '../../AC'
+import {articleSelectorFactory} from '../../selectors'
 
 class Article extends Component {
     static propTypes = {
@@ -16,7 +17,7 @@ class Article extends Component {
         }).isRequired,
         isOpen: PropTypes.bool,
         toggleOpen: PropTypes.func
-    };
+    }
 /*
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -24,8 +25,12 @@ class Article extends Component {
     }
 */
 
+    componentWillReceiveProps({ isOpen, article, loadArticle}) {
+        if (!this.props.isOpen && isOpen && !article.isLoading && !article.isLoaded) loadArticle(article.id)
+    }
+
     render() {
-        const {article, toggleOpen} = this.props;
+        const {article, toggleOpen} = this.props
         return (
             <div ref = {this.getContainerRef}>
                 <h3 onClick={toggleOpen}>
@@ -45,44 +50,38 @@ class Article extends Component {
 
     getContainerRef = (ref) => {
         this.container = ref
-    };
+    }
 
     getCommentsRef = (ref) => {
-        this.commentList = ref;
-        if (!ref) return null;
+        this.commentList = ref
+        if (!ref) return null
 //        console.log('---', ref.state.isOpen, findDOMNode(ref))
-    };
+    }
 
     getBody() {
-        const {isOpen, article: {text, comments}} = this.props;
-        if (!isOpen) return null;
+        const {isOpen, article} = this.props
+        if (!isOpen) return null
+        if (!article.isLoaded) return <Loader />
 
         return (
             <section>
-                {text}
-                <CommentList
-                    comments={comments}
-                    addNewComment={this.addNewComment}
-                    ref={this.getCommentsRef}
-                />
+                {article.text}
+                <CommentList article={article} ref = {this.getCommentsRef} />
             </section>
         )
     }
 
-    addNewComment = (comment) => {
-        this.props.addNewComment(this.props.article.id, comment)
-    };
-
     handleDelete = ev => {
-        ev.preventDefault();
+        ev.preventDefault()
         this.props.deleteArticle(this.props.article.id)
     }
 }
 
-export default connect(
-        null,
-        {
-            deleteArticle,
-            addNewComment
+export default connect(() => {
+    const articleSelector = articleSelectorFactory()
+    return (state, props) => {
+        return {
+            article: articleSelector(state, props)
         }
-    )( Article )
+    }
+}, { deleteArticle, loadArticle })(Article)

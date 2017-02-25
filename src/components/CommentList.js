@@ -4,22 +4,7 @@ import NewCommentForm from './NewCommentForm'
 
 class CommentList extends Component {
     static propTypes = {
-        comments: PropTypes.array
-    };
-    static defaultProps = {
-        comments: []
-    };
-    componentDidMount() {
-        console.log('---', 'mounted')
-    }
-
-    componentWillReceiveProps(nextProps) {
-       // console.log('---', this.props, nextProps)
-    }
-
-
-    componentWillUnmount() {
-        //console.log('---', 'unmounting')
+        article: PropTypes.object.isRequired
     }
 
     state = {
@@ -27,7 +12,7 @@ class CommentList extends Component {
     }
 
     render() {
-        const actionText = this.state.isOpen ? 'hide' : 'show';
+        const actionText = this.state.isOpen ? 'hide' : 'show'
         return (
             <div>
                 <a href="#" onClick={this.toggleOpen}>{actionText} comments</a>
@@ -37,26 +22,23 @@ class CommentList extends Component {
     }
 
     getBody() {
-        if (!this.state.isOpen) return null;
+        if (!this.state.isOpen) return null
 
-        const {comments} = this.props;
+        const {comments = [], id} = this.props.article
         if (!comments.length) return (<div>
             <h3>No comments yet</h3>
-            <NewCommentForm />
-        </div>);
+            <NewCommentForm articleId={id}/>
+        </div>)
 
-        const commentItems = comments.map(id =>
-            <li key={id}>
-                <Comment id={id} />
-            </li>);
+        const commentItems = comments.map(id => <li key={id}><Comment id={id} /></li>)
         return <div>
             <ul>{commentItems}</ul>
-            <NewCommentForm addNewComment={this.props.addNewComment} />
+            <NewCommentForm articleId={id} />
         </div>
     }
 
     toggleOpen = ev => {
-        ev.preventDefault();
+        ev.preventDefault()
         this.setState({
             isOpen: !this.state.isOpen
         })

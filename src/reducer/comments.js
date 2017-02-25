@@ -1,40 +1,16 @@
-import {
-    DELETE_ARTICLE,
-    LOAD_ALL_ARTICLES,
-    LOAD_ALL_COMMENTS,
-    FAIL, SUCCESS, START,
-    ADD_NEW_COMMENT } from '../constants'
+import {ADD_COMMENT} from '../constants'
+import {normalizedComments as defaultComments} from '../fixtures'
 import {arrayToMap} from '../utils'
 
-const defaultState = {
-    entities: arrayToMap([])
-};
+const defaultState = arrayToMap(defaultComments)
+
 
 export default (state = defaultState, action) => {
-    const {type, payload} = action;
+    const {type, payload, randomId} = action
 
     switch (type) {
-
-        case LOAD_ALL_COMMENTS + SUCCESS:
-            return {
-                ...state,
-                entities: arrayToMap(action.response.records)
-            };
-
-        case ADD_NEW_COMMENT:
-            let comments = {
-                ...state.entities,
-                ...{
-                    [payload.newCommentId]: {
-                        ...payload.comment,
-                        id: payload.newCommentId
-                    }
-                }
-            };
-
-            return {
-                ...state, ...{entities: comments}
-            }
+        case ADD_COMMENT:
+            return state.set(randomId, {...payload.comment, id: randomId})
     }
 
     return state
