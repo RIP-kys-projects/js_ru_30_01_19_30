@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
+import {connect} from 'react-redux'
 import NewCommentForm from './NewCommentForm'
+import {loadComments} from '../AC'
+import {arrayToMap, mapToArr} from '../utils'
 
 class CommentList extends Component {
     static propTypes = {
@@ -9,6 +12,14 @@ class CommentList extends Component {
 
     state = {
         isOpen: false
+    }
+
+    componentWillUpdate(nextProps, nextState){
+        console.log('*** componentWillUpdate - CommentList');
+        console.log('*** componentWillUpdate - nextState.isOpen: ', nextState.isOpen);
+        console.log('*** componentWillUpdate - !nextProps.comments.isLoading: ', !nextProps.comments.isLoading);
+        console.log('*** componentWillUpdate - !nextProps.comments.isLoaded: ', !nextProps.comments.isLoaded);
+        if (nextState.isOpen && !nextProps.comments.isLoading && !nextProps.comments.isLoaded) this.props.loadComments(this.props.article.id);
     }
 
     render() {
@@ -22,15 +33,19 @@ class CommentList extends Component {
     }
 
     getBody() {
-        if (!this.state.isOpen) return null
+        const comments = this.props.comments;
+        const {id} = this.props.article;
+        const commentsList = mapToArr(comments.entities);
 
-        const {comments = [], id} = this.props.article
-        if (!comments.length) return (<div>
+        if (!this.state.isOpen || !this.props.comments || !comments) return null
+
+        if (!commentsList.length) return (<div>
             <h3>No comments yet</h3>
             <NewCommentForm articleId={id}/>
         </div>)
 
-        const commentItems = comments.map(id => <li key={id}><Comment id={id} /></li>)
+        // по идее сюда нужно загружать необходимые комменты
+        const commentItems = commentsList.map(comment => <li key={comment.id}><Comment comment={comment} /></li>)
         return <div>
             <ul>{commentItems}</ul>
             <NewCommentForm articleId={id} />
@@ -45,4 +60,11 @@ class CommentList extends Component {
     }
 }
 
-export default CommentList
+
+ export default connect((state) => {
+        return {
+            comments: state.comments
+        }
+    }, { loadComments })(CommentList)
+
+//export default CommentList

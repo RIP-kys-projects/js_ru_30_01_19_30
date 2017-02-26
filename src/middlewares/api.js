@@ -4,7 +4,7 @@ import {START, SUCCESS, FAIL} from '../constants'
 export default store => next => action => {
     if (!action.callAPI) return next(action)
     const {callAPI, type, ...rest} = action
-
+console.log('type from middleware: ', type);
     next({...rest, type: type + START})
 
     //dev only, no need in prod!!!!!

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import {connect} from 'react-redux'
+//import {connect} from 'react-redux'
 
 function Comment(props) {
     const {text, user} = props.comment
@@ -19,8 +19,4 @@ Comment.propTypes = {
     }).isRequired
 }
 
-export default connect((state, props) => {
-    const {id} = props
-    const comment = state.comments.entities.get(id);
-    return { comment }
-})(Comment)
+export default Comment

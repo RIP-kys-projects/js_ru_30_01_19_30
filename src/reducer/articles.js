@@ -17,6 +17,7 @@ const defaultState = new DefaultReducerState()
 
 
 export default (state = defaultState, action) => {
+    console.log('**AR*** state from articles reducer: ', state);
     const {type, payload, response, randomId} = action
 
     switch (type) {
