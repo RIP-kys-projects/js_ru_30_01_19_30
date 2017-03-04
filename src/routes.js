@@ -30,7 +30,7 @@ export default (
                    }
             />
             <Route path="comments" component={CommentsListPage}>
-                {/*<IndexRedirect to="1" />*/}
+                <IndexRedirect to="1" />
                 <Route path = "1" component = {CommentsPage} />
             </Route>
             <Route path="error" component={ErrorPage}/>
