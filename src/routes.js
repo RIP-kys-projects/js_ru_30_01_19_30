@@ -26,18 +26,16 @@ export default (
             <Route path="filters" component={Filters}/>
             <Route path="counter" component={Counter}/>
             <Route path="admin" component={AuthorizedOnlyPage}
-                onEnter={(routeState, replace) => {
-                    if (!store.getState().user) {
-                        replace('/error')
-                    }
+                onEnter={
+                    (routeState, replace) => {
+                        if (!store.getState().user) {
+                            replace('/error')
+                        }
                     }
                 }
             />
             <Redirect from="comments" to="comments/1"/>
             <Route path = "comments" component = {CommentsRoot}>
-{/*
-                <IndexRedirect to="1" />
-*/}
                 <Route path = ":page" component = {CommentsPage} />
             </Route>
             <Route path="error" component={ErrorPage} />

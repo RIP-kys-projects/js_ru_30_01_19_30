@@ -9,16 +9,19 @@ class Root extends Component {
     };
 
     state = {
-        user: ''
+        user: '',
+        lang: 'en'
     }
 
     static childContextTypes = {
-        user: PropTypes.string
+        user: PropTypes.string,
+        lang: PropTypes.string
     }
 
     getChildContext() {
         return {
-            user: this.state.user
+            user: this.state.user,
+            lang: this.state.lang
         }
     }
 
@@ -27,6 +30,14 @@ class Root extends Component {
             <Provider store={store}>
                 <div>
                     <input value={this.state.user} onChange={this.handleUserChange} />
+                    <div>
+                        <label htmlFor="en">EN
+                            <input id="en" type="radio" name="lang" value="en" onChange={this.handleRadioChange} checked={this.state.lang === 'en'} />
+                        </label>
+                        <label htmlFor="ru">RU
+                            <input id="ru" type="radio" name="lang" value="ru" onChange={this.handleRadioChange} checked={this.state.lang === 'ru'}/>
+                        </label>
+                    </div>
                     <Menu>
                         <MenuItem path="/articles" />
                         <MenuItem path="/filters" />
@@ -42,6 +53,17 @@ class Root extends Component {
     handleUserChange = ev => {
         this.setState({
             user: ev.target.value
+        })
+    };
+
+    /**
+     * Handles radiobutton change
+     * @param ev
+     */
+    handleRadioChange = ev => {
+        let target = ev.target;
+        this.setState({
+            lang: target.value
         })
     }
 }
