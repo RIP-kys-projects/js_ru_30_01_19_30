@@ -9,7 +9,7 @@ class commentsListPage extends Component {
         return (
             <div>
                 <div>CommentsList title</div>
-                <div>comment from nested route</div>
+                {this.props.children}
                 <div>pagination line</div>
             </div>
         )

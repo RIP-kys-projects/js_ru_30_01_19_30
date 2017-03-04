@@ -1,5 +1,5 @@
 import React from 'react'
-import {Router, Route, hashHistory, browserHistory} from 'react-router'
+import {Router, Route, hashHistory, browserHistory, IndexRedirect} from 'react-router'
 import Root from './components/Root'
 import ArticleList from './routeHandlers/ArticleList'
 import Filters from './routeHandlers/Filters'
@@ -29,7 +29,8 @@ export default (
                    }
             />
             <Route path="comments" component={CommentsListPage}>
-                {/*<Route path=":id" component={ArticlePage}/>*/}
+                <IndexRedirect to="1" />
+                {/*<Route path = ":page" component = {CommentsPage} />*/}
             </Route>
             <Route path="error" component={ErrorPage}/>
             <Route path="*" component={NotFoundPage}/>
