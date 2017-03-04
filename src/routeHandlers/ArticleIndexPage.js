@@ -5,10 +5,16 @@ class ArticleIndexPage extends Component {
 
     };
 
+    static contextTypes = {
+        lang: PropTypes.string,
+        locale: PropTypes.object
+    };
+
     render() {
+        const currentLang = this.context.locale[this.context.lang] || this.context.locale['en'];
         return (
             <div>
-                <h1>Select Article</h1>
+                <h1>{currentLang.selectArticleTitle}</h1>
             </div>
         )
     }

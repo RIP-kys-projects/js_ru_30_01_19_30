@@ -7,11 +7,17 @@ class Counter extends Component {
 
     };
 
+    static contextTypes = {
+        lang: PropTypes.string,
+        locale: PropTypes.object
+    };
+
     render() {
+        const currentLang = this.context.locale[this.context.lang] || this.context.locale['en'];
         return (
             <div>
                 <h1>{this.props.count}</h1>
-                <a href="#" onClick={this.handleIncrement}>Increment</a>
+                <a href="#" onClick={this.handleIncrement}>{currentLang.counterMsg}</a>
             </div>
         )
     }

@@ -7,10 +7,16 @@ class Menu extends Component {
 
     };
 
+    static contextTypes = {
+        lang: PropTypes.string,
+        locale: PropTypes.object
+    };
+
     render() {
+        const currentLang = this.context.locale[this.context.lang] || this.context.locale['en'];
         return (
             <div>
-                <h2>Main menu:</h2>
+                <h2>{currentLang.menu.title}:</h2>
                 {this.props.children}
             </div>
         )

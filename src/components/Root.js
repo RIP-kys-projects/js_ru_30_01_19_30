@@ -15,13 +15,46 @@ class Root extends Component {
 
     static childContextTypes = {
         user: PropTypes.string,
-        lang: PropTypes.string
+        lang: PropTypes.string,
+        locale: PropTypes.object
     }
 
     getChildContext() {
         return {
             user: this.state.user,
-            lang: this.state.lang
+            lang: this.state.lang,
+            locale: {
+                en: {
+                    menu: {
+                        title: 'Main menu',
+                        items: {
+                            "/articles": 'articles',
+                            "/filters": 'filters',
+                            "/counter": 'counter',
+                            "/comments/1": 'comments/1'
+                        }
+                    },
+                    selectArticleTitle: 'Select article',
+                    commentsPaginationTitle: 'Comments pagination',
+                    loadingMsg: 'Loading...',
+                    counterMsg: 'Increment',
+                },
+                ru: {
+                    menu: {
+                        title: 'Главное меню',
+                        items: {
+                            "/articles": 'статьи',
+                            "/filters": 'фильтры',
+                            "/counter": 'счётчик',
+                            "/comments/1": 'комментарии/1'
+                        }
+                    },
+                    selectArticleTitle: 'Выберите статью',
+                    commentsPaginationTitle: 'Пагинация комментариев',
+                    loadingMsg: 'Идёт загрузка...',
+                    counterMsg: 'Увеличить значение',
+                }
+            }
         }
     }
 
