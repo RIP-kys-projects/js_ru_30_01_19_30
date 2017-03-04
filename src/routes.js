@@ -8,6 +8,7 @@ import ArticlePage from './routeHandlers/ArticlePage'
 import NotFoundPage from './routeHandlers/NotFoundPage'
 import AuthorizedOnlyPage from './routeHandlers/AuthorizedOnlyPage'
 import CommentsListPage from './routeHandlers/CommentsListPage'
+import CommentsPage from './routeHandlers/CommentsPage'
 import ErrorPage from './routeHandlers/ErrorPage'
 import store from './store'
 
@@ -29,8 +30,8 @@ export default (
                    }
             />
             <Route path="comments" component={CommentsListPage}>
-                <IndexRedirect to="1" />
-                {/*<Route path = ":page" component = {CommentsPage} />*/}
+                {/*<IndexRedirect to="1" />*/}
+                <Route path = "1" component = {CommentsPage} />
             </Route>
             <Route path="error" component={ErrorPage}/>
             <Route path="*" component={NotFoundPage}/>
