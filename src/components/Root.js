@@ -23,6 +23,7 @@ class Root extends Component {
         return {
             user: this.state.user,
             lang: this.state.lang,
+            //вынеси словарь в отдельный файл
             locale: {
                 en: {
                     menu: {
